@@ -335,7 +335,7 @@
       const output = document.getElementById("output");
 
       if (classInfo) {
-        const message = `Now ${classInfo.subject} by ${classInfo.teacher}`;
+        const message = `Now ${classInfo.subject} ( ${classInfo.teacher})`;
         output.textContent = message;
         announce(message);
       } else {
