@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Clock</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+      font-family: "Bebas Neue", sans-serif;
+      color: white;
+    }
+    body {
+      background: black;
+      display: flex;
+      height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      user-select: none;
+      cursor: pointer;
+    }
+    .sidebar {
+      background: linear-gradient(30deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+      color: white;
+      width: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .sidebar h2 {
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      font-size: 3rem;
+      letter-spacing: 5px;
+    }
+    .main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-left: -150px;
+      margin-top: -110px;
+      z-index: -1;
+    }
+    h1 {
+      margin: 3px;
+      color: #fff;
+      font-size: 8rem;
+    }
+    #ampm {
+      font-size: 3rem;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    #date {
+      font-size: 2rem;
+      color: #fff;
+      margin-top: 15%;
+      margin-left: -350px;
+    }
+    .under {
+      margin-top: 40%;
+      margin-left: -300px;
+
+    }
+    .under h2 {
+      margin-bottom: 5px;
+      color: #fff;
+      font-size: 30px;
+    }
+    .under p {
+      color: #fff;
+      font-size: 20px;
+    }
+
+    button{
+      background: rgba(0, 212, 255, 1);
+      padding: 10px;
+      border-radius: 500px;
+      width: 40px;
+      height: 40px;
+      border: none;
+      font-size: 18px;
+      margin-top: 15px;
+      margin-right: 15px;
+      z-index: 9999;
+      cursor: pointer;
+      transition: 0.6s ease;
+    }
+    button:hover{
+      background: rgb(0, 119, 255);
+    }
+
+  
+   
+    #output{
+    font-size: 35px;
+    font-weight: 500;
+   
+   }
+
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2>FIDA</h2>
+  </div>
+
+  <div class="main">
+    
+      
+    <h1 id="hours">--</h1><h1>:</h1>
+    <h1 id="minutes">--</h1><h1>:</h1>
+    <h1 id="seconds">--</h1>
+    <h1 id="ampm">--</h1>
+    <h1 id="date">Loading date...</h1>
+
+    <div class="under">
+      <h2>FIDA</h2>
+      <p>Front of Illuminative Development Activities</p>
+      <p id="output">Checking schedule...</p>
+
+    </div>
+  </div>
+  <div class="buttons">
+    <a href="./timer.html"><button><i class="fa-solid fa-stopwatch-20"></i></button></a>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+
+      hours = hours % 12 || 12;
+
+      document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+      document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+      document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+      document.getElementById('ampm').textContent = ampm;
+
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('date').textContent = now.toLocaleDateString(undefined, options);
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    document.body.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    });
+
+
+
+
+
+
+
+
+
+    const schedule = {
+      "Monday": [
+        { start: "07:00 AM", end: "07:45 AM", subject: "Good Morning" },
+        { start: "07:45 AM", end: "08:30 AM", subject: "Tasawwuf", teacher: "Salam Qasimi Usthad" },
+        { start: "08:30 AM", end: "09:15 AM", subject: "Hadees", teacher: "Hisham Azhari Usthad" },
+        { start: "09:15 AM", end: "09:40 AM", subject: "Breakfast" },
+        { start: "09:40 AM", end: "10:25 AM", subject: "Hindi", teacher: "Suhail wafy Ustad" },
+        { start: "10:25 AM", end: "11:10 AM", subject: "Fiqh", teacher: "Jamshad Wafy Usthad" },
+        { start: "11:10 AM", end: "11:20 AM", subject: "Intervel" },
+        { start: "11:20 AM", end: "12:05 PM", subject: "Nahv", teacher: "farzeen Hasani Usthad" },
+        { start: "12:05 PM", end: "12:50 PM", subject: "Alfiya", teacher: "Abdul Basith Hudawi Usthad" },
+        { start: "12:50 PM", end: "02:00 PM", subject: "Lunch" },
+        { start: "02:00 PM", end: "02:40 PM", subject: "Adab", teacher: "Favas Hudawi Usthad" },
+        { start: "02:40 PM", end: "02:50 PM", subject: "Intervel"},
+        { start: "02:50 PM", end: "03:30 PM", subject: "Maths" , teacher:"Nill"},
+        { start: "03:30 PM", end: "04:10 PM", subject: "English", teacher: "Aboobacker Sideeque Wafy Ustahad" },
+        { start: "04:10 PM", end: "06:30 PM", subject: "Play Time"},
+        { start: "07:00 PM", end: "08:30 PM", subject: "First Dars" },
+        { start: "10:00 PM", end: "11:00 PM", subject: "Second Dars" }
+
+      ],
+      "Tuesday": [
+      { start: "07:00 AM", end: "07:45 AM", subject: "Good Morning" },
+        { start: "07:45 AM", end: "08:30 AM", subject: "Fiqh", teacher: "Jamshad wafy Usthad" },
+        { start: "08:30 AM", end: "09:15 AM", subject: "Adab", teacher: "Fawas Hudawi Usthad" },
+        { start: "09:15 AM", end: "09:40 AM", subject: "Breakfast" },
+        { start: "09:40 AM", end: "10:25 AM", subject: "Physics", teacher: "Highnus Sir" },
+        { start: "10:25 AM", end: "11:10 AM", subject: "Alfiya", teacher: "Abdul Basith Hudawi Usthad" },
+        { start: "11:10 AM", end: "11:20 AM", subject: "Intervel" },
+        { start: "11:20 AM", end: "12:05 PM", subject: "Chemistry", teacher: "Highnus Sir" },
+        { start: "12:05 PM", end: "12:50 PM", subject: "Thareeq", teacher: "Abdul Basith Hudawi Usthad" },
+        { start: "12:50 PM", end: "02:00 PM", subject: "Lunch" },
+        { start: "02:00 PM", end: "02:40 PM", subject: "It", teacher: "Favas Hudawi Usthad" },
+        { start: "02:40 PM", end: "02:50 PM", subject: "Intervel"},
+        { start: "02:50 PM", end: "03:30 PM", subject: "English", teacher: "Nill" },
+        { start: "03:30 PM", end: "04:10 PM", subject: "Malayalam", teacher: "Junaid Hudawi Usthad" },
+        { start: "04:10 PM", end: "06:30 PM", subject: "Play Time"},
+        { start: "07:00 PM", end: "08:30 PM", subject: "First Dars" },
+        { start: "10:00 PM", end: "11:00 PM", subject: "Second Dars" }
+      ],
+      "Wednesday": [
+      { start: "07:00 AM", end: "07:45 AM", subject: "Good Morning" },
+        { start: "07:45 AM", end: "08:30 AM", subject: "Hindi", teacher: "Salam Qasimi Usthad" },
+        { start: "08:30 AM", end: "09:15 AM", subject: "Biology", teacher: "Hisham Azhari Usthad" },
+        { start: "09:15 AM", end: "09:40 AM", subject: "Breakfast" },
+        { start: "09:40 AM", end: "10:25 AM", subject: "Nahv", teacher: "Suhail wafy Ustad" },
+        { start: "10:25 AM", end: "11:10 AM", subject: "Physics", teacher: "Jamshad Wafy Usthad" },
+        { start: "11:10 AM", end: "11:20 AM", subject: "Intervel" },
+        { start: "11:20 AM", end: "12:05 PM", subject: "Alfiya", teacher: "farzeen Hasani Usthad" },
+        { start: "12:05 PM", end: "12:50 PM", subject: "Fiqh", teacher: "Abdul Basith Hudawi Usthad" },
+        { start: "12:50 PM", end: "02:00 PM", subject: "Lunch" },
+        { start: "02:00 PM", end: "02:40 PM", subject: "History", teacher: "Favas Hudawi Usthad" },
+        { start: "02:40 PM", end: "02:50 PM", subject: "Intervel"},
+        { start: "02:50 PM", end: "03:30 PM", subject: "T&C", teacher: "Junaid Hudawi Usthad" },
+        { start: "03:30 PM", end: "04:10 PM", subject: "Urdu", teacher: "Asif Hudawi Ustahad" },
+        { start: "04:10 PM", end: "06:30 PM", subject: "Play Time"},
+        { start: "07:00 PM", end: "08:30 PM", subject: "First Dars" },
+        { start: "10:00 PM", end: "11:00 PM", subject: "Second Dars" }
+      ],
+      "Thursday": [
+      { start: "07:00 AM", end: "07:45 AM", subject: "Good Morning" },
+        { start: "07:45 AM", end: "08:30 AM", subject: "Nahv", teacher: "Farzeen Hasani Usthad" },
+        { start: "08:30 AM", end: "09:15 AM", subject: "Fiqh", teacher: "Jamshad Wafy Usthad" },
+        { start: "09:15 AM", end: "09:40 AM", subject: "Breakfast" },
+        { start: "09:40 AM", end: "10:25 AM", subject: "Urdu", teacher: "Asif Hudawi Ustad" },
+        { start: "10:25 AM", end: "11:10 AM", subject: "Alfiya", teacher: "Abdul Basith Hudawi Usthad" },
+        { start: "11:10 AM", end: "11:20 AM", subject: "Intervel" },
+        { start: "11:20 AM", end: "12:05 PM", subject: "Chemistry", teacher: "Highnus Sir" },
+        { start: "12:05 PM", end: "12:50 PM", subject: "Hadees", teacher: "Hisham Azhari Usthad" },
+        { start: "12:50 PM", end: "02:00 PM", subject: "Lunch" },
+        { start: "02:00 PM", end: "02:40 PM", subject: "History", teacher: "Nill" },
+        { start: "02:40 PM", end: "02:50 PM", subject: "Intervel"},
+        { start: "02:50 PM", end: "03:30 PM", subject: "Tafseer", teacher:"Swadiq Navavi Usthad" },
+        { start: "03:30 PM", end: "04:10 PM", subject: "Maths", teacher: "Nill" },
+        { start: "04:10 PM", end: "06:30 PM", subject: "Play Time"},
+        { start: "07:00 PM", end: "08:30 PM", subject: "First Dars" },
+        { start: "10:00 PM", end: "11:00 PM", subject: "Second Dars" }
+      ],
+      "Friday": [
+        { start: "04:10 PM", end: "06:30 PM", subject: "Play Time"},
+        { start: "07:00 PM", end: "08:30 PM", subject: "First Dars" },
+        { start: "10:00 PM", end: "11:00 PM", subject: "Second Dars" }
+      ],
+      "Saturday": [
+        { start: "07:00 AM", end: "07:45 AM", subject: "Good Morning" },
+        { start: "07:45 AM", end: "08:30 AM", subject: "Thareeq", teacher: "Faiz Hasani Usthad" },
+        { start: "08:30 AM", end: "09:15 AM", subject: "Biology", teacher: "Jabir Hudawi Usthad" },
+        { start: "09:15 AM", end: "09:40 AM", subject: "Breakfast" },
+        { start: "09:40 AM", end: "10:25 AM", subject: "Geography", teacher: "Jabir Hudawi Usthad" },
+        { start: "10:25 AM", end: "11:10 AM", subject: "Chemistry", teacher: "Highnus Sir" },
+        { start: "11:10 AM", end: "11:20 AM", subject: "Intervel" },
+        { start: "11:20 AM", end: "12:05 PM", subject: "English", teacher: "Aboobacker Sideeque Wafy Usthad" },
+        { start: "12:05 PM", end: "12:50 PM", subject: "It", teacher: "Dulkifal Hudawi Usthad" },
+        { start: "12:50 PM", end: "02:00 PM", subject: "Lunch" },
+        { start: "02:00 PM", end: "02:40 PM", subject: "Fiqh", teacher: "Jamshad wafy Usthad" },
+        { start: "02:40 PM", end: "02:50 PM", subject: "Intervel"},
+        { start: "02:50 PM", end: "03:30 PM", subject: "Adab", teacher:"Fawas Hudawi Usthad" },
+        { start: "03:30 PM", end: "04:10 PM", subject: "T&C", teacher: "Junaid Hudawi Ustahad" },
+        { start: "04:10 PM", end: "06:30 PM", subject: "Play Time"},
+        { start: "07:00 PM", end: "08:30 PM", subject: "First Dars" },
+        { start: "10:00 PM", end: "11:00 PM", subject: "Second Dars" }
+      ],
+      "Sunday": [
+        { start: "07:00 AM", end: "07:45 AM", subject: "Good Morning" },
+        { start: "07:45 AM", end: "08:30 AM", subject: "Nahv", teacher: "Salam Qasimi Usthad" },
+        { start: "08:30 AM", end: "09:15 AM", subject: "Thareeq", teacher: "Hisham Azhari Usthad" },
+        { start: "09:15 AM", end: "09:40 AM", subject: "Breakfast" },
+        { start: "09:40 AM", end: "10:25 AM", subject: "Geography", teacher: "Suhail wafy Ustad" },
+        { start: "10:25 AM", end: "11:10 AM", subject: "Alfiya", teacher: "Jamshad Wafy Usthad" },
+        { start: "11:10 AM", end: "11:20 AM", subject: "Intervel" },
+        { start: "11:20 AM", end: "12:05 PM", subject: "Maths", teacher: "farzeen Hasani Usthad" },
+        { start: "12:05 PM", end: "12:50 PM", subject: "Malayalam", teacher: "Abdul Basith Hudawi Usthad" },
+        { start: "12:50 PM", end: "02:00 PM", subject: "Lunch" },
+        { start: "02:00 PM", end: "02:40 PM", subject: "Hadees", teacher: "Favas Hudawi Usthad" },
+        { start: "02:40 PM", end: "02:50 PM", subject: "Intervel"},
+        { start: "02:50 PM", end: "03:30 PM", subject: "English", teacher: "Aboobacker Sideeque Wafy Usthad " },
+        { start: "03:30 PM", end: "04:10 PM", subject: "Urdu", teacher: "Asif Hudawi Usthad" },
+        { start: "04:10 PM", end: "06:30 PM", subject: "Play Time"},
+        { start: "07:00 PM", end: "08:30 PM", subject: "First Dars" },
+        { start: "10:00 PM", end: "11:00 PM", subject: "Second Dars" }
+      ],
+
+    };
+
+    function convertTo24Hour(timeStr) {
+      const [time, modifier] = timeStr.split(' ');
+      let [hours, minutes] = time.split(':').map(Number);
+      if (modifier === 'PM' && hours !== 12) hours += 12;
+      if (modifier === 'AM' && hours === 12) hours = 0;
+      return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    }
+
+    function getCurrentClass() {
+      const now = new Date();
+      const day = now.toLocaleString('en-US', { weekday: 'long' });
+      const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+
+      const todaySchedule = schedule[day];
+      if (!todaySchedule) return null;
+
+      for (const period of todaySchedule) {
+        const start = convertTo24Hour(period.start);
+        const end = convertTo24Hour(period.end);
+        if (currentTime >= start && currentTime <= end) {
+          return period;
+        }
+      }
+      return null;
+    }
+
+    function announce(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      const voices = window.speechSynthesis.getVoices();
+      utterance.voice = voices.find(v => v.name.toLowerCase().includes('male')) || voices[0];
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function updateClassInfo() {
+      const classInfo = getCurrentClass();
+      const output = document.getElementById("output");
+
+      if (classInfo) {
+        const message = `Now ${classInfo.subject} by ${classInfo.teacher}`;
+        output.textContent = message;
+        announce(message);
+      } else {
+        output.textContent = "No class at this time.";
+      }
+    }
+
+    window.speechSynthesis.onvoiceschanged = () => {
+      updateClassInfo();
+    };
+
+    setInterval(updateClassInfo, 60000);
+
+
+
+
+
+
+    
+
+    function checkSchedule() {
+  const now = new Date();
+  const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+  let currentPeriod = { period: "No Period", teacher: "--" };
+
+  for (let item of schedule) {
+    if (currentTime >= item.start && currentTime < item.end) {
+      currentPeriod = item;
+      break;
+    }
+  }
+
+  document.getElementById("periodDisplay").innerHTML = 
+    `Period: ${currentPeriod.period} <br>Teacher: ${currentPeriod.teacher}`;
+}
+
+setInterval(checkSchedule, 30000);
+checkSchedule();
+
+
+
+
+  </script>
+
+</body>
+</html>
